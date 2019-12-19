@@ -15,6 +15,8 @@ main(){
             make
             make check
             make install
+            whiptail --title "Success" --msgbox "Done.
+完成" 10 60
         else
             main
         fi
@@ -22,7 +24,14 @@ main(){
     uninstall(){
         if(whiptail --title "Yes/No" --yesno "Continue?
 确认卸载？" 10 60)then
-            rm -rf /usr/local/snapraid
+            if [ -f '/usr/local/snapraid' ];then
+                rm -rf /usr/local/snapraid
+                whiptail --title "Success" --msgbox "Done.
+完成" 10 60
+            else
+                whiptail --title "Warnning" --msgbox "Not installed.
+没有检测到安装过snapraid。" 10 60
+            fi
         else
             main
         fi
