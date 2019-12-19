@@ -11,7 +11,7 @@ main(){
             wget https://github.com/amadvance/snapraid/releases/download/v11.3/snapraid-11.3.tar.gz
             tar xzf snapraid-11.3.tar.gz 
             cd snapraid-11.3/
-            ./configure --prefix=/usr/local/
+            ./configure 
             make
             make check
             make install
@@ -24,8 +24,12 @@ main(){
     uninstall(){
         if(whiptail --title "Yes/No" --yesno "Continue?
 确认卸载？" 10 60)then
-            if [ -f '/usr/local/snapraid' ];then
-                rm -rf /usr/local/snapraid
+            if [ -f '/var/lib/snapraid' ];then
+                cd /var/lib/snapraid
+                cd snapraid*
+                make uninstall
+                cd ~
+                rm /var/lib/snapraid -rf
                 whiptail --title "Success" --msgbox "Done.
 完成" 10 60
             else
